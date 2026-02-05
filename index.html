@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Love Story ❤️</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+  overflow-x: hidden;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Floating hearts */
+.heart {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: #ff4b5c;
+  transform: rotate(-45deg);
+  border-radius: 5px;
+  animation: float 5s linear infinite;
+  opacity: 0.8;
+}
+.heart::before, .heart::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: #ff4b5c;
+  border-radius: 50%;
+}
+.heart::before { top: -10px; left: 0; }
+.heart::after { left: 10px; top: 0; }
+
+@keyframes float {
+  0% { transform: translateY(0) rotate(-45deg); opacity: 0.8; }
+  50% { opacity: 0.5; }
+  100% { transform: translateY(-900px) rotate(-45deg); opacity: 0; }
+}
+
+/* Glow & pulsate text */
+@keyframes glowPulse {
+  0% { text-shadow: 2px 2px 10px #ff4b5c; transform: scale(1); }
+  50% { text-shadow: 2px 2px 25px #ffdae0; transform: scale(1.05); }
+  100% { text-shadow: 2px 2px 10px #ff4b5c; transform: scale(1); }
+}
+
+/* Intro Screen */
+#intro {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 10;
+  animation: fadeZoom 2s ease-in-out forwards;
+}
+#intro h1 {
+  font-family: 'Pacifico', cursive;
+  font-size: 3rem;
+  text-shadow: 2px 2px 10px #ff4b5c;
+}
+#intro button {
+  margin-top: 20px;
+  padding: 12px 25px;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 12px;
+  background: #ff4b5c;
+  color: white;
+  cursor: pointer;
+  box-shadow: 2px 2px 15px #ff9a9e;
+}
+
+/* Story container */
+#story-container {
+  width: 90%;
+  max-width: 600px;
+  position: relative;
+  z-index: 2;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Story slide */
+.story-slide {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  animation: fadeZoom 1s ease-in-out;
+}
+.story-slide img {
+  width: 100%;
+  max-height: 70vh;
+  object-fit: cover;
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+.story-slide p {
+  margin-top: 12px;
+  font-family: 'Pacifico', cursive;
+  font-size: 1.3rem;
+  background: rgba(255,255,255,0.2);
+  padding: 8px 12px;
+  border-radius: 12px;
+  text-shadow: 1px 1px 4px #ff4b5c;
+}
+
+/* Navigation buttons */
+.nav-buttons {
+  margin-top: 15px;
+  display: flex;
+  gap: 15px;
+}
+button.nav {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 10px;
+  background: #ff4b5c;
+  color: white;
+  cursor: pointer;
+  box-shadow: 2px 2px 10px #ff9a9e;
+  transition: transform 0.2s;
+}
+button.nav:hover { transform: scale(1.1); }
+
+/* Surprise page */
+#surprise {
+  display: none;
+  text-align: center;
+  width: 90%;
+  max-width: 600px;
+  font-family: 'Pacifico', cursive;
+  font-size: 2rem;
+  color: #fff5f5;
+  animation: glowPulse 2s infinite;
+  line-height: 1.5;
+  position: relative;
+  z-index: 5;
+}
+
+/* Confetti */
+.confetti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: #ffdae0;
+  top: 0;
+  left: 0;
+  opacity: 0.8;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: confettiFall 3s linear forwards;
+}
+@keyframes confettiFall {
+  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(600px) rotate(360deg); opacity: 0; }
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .story-slide p { font-size: 1rem; padding: 6px 8px; }
+  button.nav { font-size: 0.9rem; padding: 8px 15px; }
+  #intro h1 { font-size: 2rem; }
+  #intro button { font-size: 1rem; }
+  #surprise { font-size: 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- Background music -->
+<audio autoplay loop>
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Intro Screen -->
+<div id="intro">
+  <h1>Happy Valentine’s Day ❤️</h1>
+  <button onclick="startStory()">Enter Our Love Story</button>
+</div>
+
+<!-- Story Container -->
+<div id="story-container">
+  <div class="story-slide">
+    <img src="https://picsum.photos/600/400?random=1" alt="First Moment">
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rem aut debitis ex optio nostrum, tenetur ipsam id a asperiores consequatur maiores dolores, placeat nulla sit expedita nihil? Explicabo, quis! Consectetur. ❤️</p>
+  </div>
+  <div class="story-slide">
+    <img src="https://picsum.photos/600/400?random=2" alt="First Date">
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam nulla corrupti quisquam. Unde velit officiis dicta consequuntur molestias dolorem mollitia sit. Est aspernatur consequuntur optio molestiae aperiam fugit assumenda doloribus. 🌹</p>
+  </div>
+  <div class="story-slide">
+    <img src="https://picsum.photos/600/400?random=3" alt="Adventures">
+    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Perferendis saepe et soluta ea, temporibus commodi iste consequatur unde id laborum sint vitae, quod aspernatur veniam recusandae similique neque. Odit, officiis. ✨</p>
+  </div>
+  <div class="story-slide">
+    <img src="https://picsum.photos/600/400?random=4" alt="Forever Love">
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum officiis aut quis sequi ut corporis est fuga eaque ab eum! Consequatur asperiores harum rem eligendi reiciendis voluptas voluptatem ex! Facilis. 💖</p>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="nav" id="prevBtn">← Previous</button>
+    <button class="nav" id="nextBtn">Next →</button>
+  </div>
+</div>
+
+<!-- Surprise Page -->
+<div id="surprise">
+  🌟 Surprise! 🌟<br>
+  I love you more than all the stars in the sky! 💞<br>
+  You are my everything. ❤️
+</div>
+
+<script>
+// Intro -> Story
+function startStory() {
+  document.getElementById('intro').style.display = 'none';
+  document.getElementById('story-container').style.display = 'flex';
+  showSlide(slideIndex);
+}
+
+// Story navigation
+let slideIndex = 0;
+const slides = document.querySelectorAll('.story-slide');
+const totalSlides = slides.length;
+
+function showSlide(index) {
+  slides.forEach(slide => slide.style.display = 'none');
+  const nextBtn = document.getElementById('nextBtn');
+
+  if(index < totalSlides) {
+    slides[index].style.display = 'flex';
+    document.getElementById('surprise').style.display = 'none';
+    nextBtn.style.display = (index === totalSlides - 1) ? 'none' : 'inline-block';
+  } else {
+    document.getElementById('story-container').style.display = 'none';
+    document.getElementById('surprise').style.display = 'block';
+    launchConfetti();
+  }
+}
+
+document.getElementById('nextBtn').addEventListener('click', () => {
+  slideIndex++;
+  showSlide(slideIndex);
+});
+
+document.getElementById('prevBtn').addEventListener('click', () => {
+  if(slideIndex > 0) {
+    slideIndex--;
+    document.getElementById('story-container').style.display = 'flex';
+    showSlide(slideIndex);
+  }
+});
+
+// Floating hearts
+function createHeart() {
+  const heart = document.createElement('div');
+  heart.classList.add('heart');
+  heart.style.left = Math.random() * window.innerWidth + 'px';
+  heart.style.animationDuration = 3 + Math.random() * 4 + 's';
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 6000);
+}
+setInterval(createHeart, 300);
+
+// Click hearts
+document.body.addEventListener('click', (e) => {
+  for(let i=0;i<3;i++){
+    const heart = document.createElement('div');
+    heart.classList.add('heart');
+    heart.style.left = (e.clientX + Math.random()*50 - 25) + 'px';
+    heart.style.top = (e.clientY + Math.random()*50 - 25) + 'px';
+    heart.style.animationDuration = 2 + Math.random() * 2 + 's';
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),3000);
+  }
+});
+
+// Confetti on surprise page
+function launchConfetti() {
+  for(let i=0;i<50;i++){
+    const confetti = document.createElement('div');
+    confetti.classList.add('confetti');
+    confetti.style.left = Math.random() * window.innerWidth + 'px';
+    confetti.style.backgroundColor = `hsl(${Math.random()*360},70%,80%)`;
+    confetti.style.animationDuration = (2+Math.random()*2)+'s';
+    document.body.appendChild(confetti);
+    setTimeout(()=>confetti.remove(),4000);
+  }
+}
+</script>
+
+</body>
+</html>
