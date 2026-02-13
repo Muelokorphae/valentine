@@ -1,313 +1,367 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Our Love Story ❤️</title>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Our Love Story ❤️</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Great+Vibes&family=Noto+Sans+Lao:wght@400;700&display=swap");
 
-body {
-  margin: 0;
-  font-family: 'Arial', sans-serif;
-  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-  overflow-x: hidden;
-  color: white;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  position: relative;
-}
+      body {
+        margin: 0;
+        font-family: "Noto Sans Lao", sans-serif;
+        background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+        overflow-x: hidden;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        position: relative;
+      }
 
-/* Floating hearts */
-.heart {
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  background: #ff4b5c;
-  transform: rotate(-45deg);
-  border-radius: 5px;
-  animation: float 5s linear infinite;
-  opacity: 0.8;
-}
-.heart::before, .heart::after {
-  content: '';
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  background: #ff4b5c;
-  border-radius: 50%;
-}
-.heart::before { top: -10px; left: 0; }
-.heart::after { left: 10px; top: 0; }
+      /* Floating hearts */
+      .heart {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background: #ff4b5c;
+        transform: rotate(-45deg);
+        border-radius: 5px;
+        animation: float 5s linear infinite;
+        opacity: 0.8;
+        z-index: 1;
+      }
+      .heart::before,
+      .heart::after {
+        content: "";
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background: #ff4b5c;
+        border-radius: 50%;
+      }
+      .heart::before {
+        top: -10px;
+        left: 0;
+      }
+      .heart::after {
+        left: 10px;
+        top: 0;
+      }
 
-@keyframes float {
-  0% { transform: translateY(0) rotate(-45deg); opacity: 0.8; }
-  50% { opacity: 0.5; }
-  100% { transform: translateY(-900px) rotate(-45deg); opacity: 0; }
-}
+      @keyframes float {
+        0% {
+          transform: translateY(0) rotate(-45deg);
+          opacity: 0.8;
+        }
+        50% {
+          opacity: 0.5;
+        }
+        100% {
+          transform: translateY(-900px) rotate(-45deg);
+          opacity: 0;
+        }
+      }
 
-/* Glow & pulsate text */
-@keyframes glowPulse {
-  0% { text-shadow: 2px 2px 10px #ff4b5c; transform: scale(1); }
-  50% { text-shadow: 2px 2px 25px #ffdae0; transform: scale(1.05); }
-  100% { text-shadow: 2px 2px 10px #ff4b5c; transform: scale(1); }
-}
+      /* Intro Screen */
+      #intro {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        z-index: 10;
+      }
+      #intro h1 {
+        font-family: "Great Vibes", cursive;
+        font-size: 3rem;
+        text-align: center;
+        text-shadow: 2px 2px 10px #ff4b5c;
+      }
+      #intro button {
+        margin-top: 20px;
+        padding: 12px 25px;
+        font-size: 1.2rem;
+        border: none;
+        border-radius: 12px;
+        background: #ff4b5c;
+        color: white;
+        cursor: pointer;
+        box-shadow: 2px 2px 15px #ff9a9e;
+      }
 
-/* Intro Screen */
-#intro {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  z-index: 10;
-  animation: fadeZoom 2s ease-in-out forwards;
-}
-#intro h1 {
-  font-family: 'Pacifico', cursive;
-  font-size: 3rem;
-  text-shadow: 2px 2px 10px #ff4b5c;
-}
-#intro button {
-  margin-top: 20px;
-  padding: 12px 25px;
-  font-size: 1.2rem;
-  border: none;
-  border-radius: 12px;
-  background: #ff4b5c;
-  color: white;
-  cursor: pointer;
-  box-shadow: 2px 2px 15px #ff9a9e;
-}
+      /* Story container */
+      #story-container {
+        width: 90%;
+        max-width: 600px;
+        z-index: 2;
+        display: none;
+        flex-direction: column;
+        align-items: center;
+      }
 
-/* Story container */
-#story-container {
-  width: 90%;
-  max-width: 600px;
-  position: relative;
-  z-index: 2;
-  display: none;
-  flex-direction: column;
-  align-items: center;
-}
+      /* Story slide */
+      .story-slide {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      .story-slide.active {
+        display: flex;
+        animation: fadeZoom 0.8s ease-in-out;
+      }
 
-/* Story slide */
-.story-slide {
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  animation: fadeZoom 1s ease-in-out;
-}
-.story-slide img {
-  width: 100%;
-  max-height: 70vh;
-  object-fit: cover;
-  border-radius: 20px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.5);
-}
-.story-slide p {
-  margin-top: 12px;
-  font-family: 'Pacifico', cursive;
-  font-size: 1.3rem;
-  background: rgba(255,255,255,0.2);
-  padding: 8px 12px;
-  border-radius: 12px;
-  text-shadow: 1px 1px 4px #ff4b5c;
-}
+      @keyframes fadeZoom {
+        from {
+          opacity: 0;
+          transform: scale(0.9);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
 
-/* Navigation buttons */
-.nav-buttons {
-  margin-top: 15px;
-  display: flex;
-  gap: 15px;
-}
-button.nav {
-  padding: 10px 20px;
-  font-size: 1rem;
-  border: none;
-  border-radius: 10px;
-  background: #ff4b5c;
-  color: white;
-  cursor: pointer;
-  box-shadow: 2px 2px 10px #ff9a9e;
-  transition: transform 0.2s;
-}
-button.nav:hover { transform: scale(1.1); }
+      .story-slide img {
+        width: 100%;
+        max-height: 50vh;
+        object-fit: cover;
+        border-radius: 20px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+      }
+      .story-slide p {
+        margin-top: 15px;
+        font-family: "Noto Sans Lao", sans-serif;
+        font-size: 1.1rem;
+        background: rgba(255, 255, 255, 0.2);
+        padding: 15px;
+        border-radius: 15px;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        line-height: 1.6;
+      }
 
-/* Surprise page */
-#surprise {
-  display: none;
-  text-align: center;
-  width: 90%;
-  max-width: 600px;
-  font-family: 'Pacifico', cursive;
-  font-size: 2rem;
-  color: #fff5f5;
-  animation: glowPulse 2s infinite;
-  line-height: 1.5;
-  position: relative;
-  z-index: 5;
-}
+      /* Navigation buttons */
+      .nav-buttons {
+        margin-top: 20px;
+        display: flex;
+        gap: 20px;
+      }
+      button.nav {
+        padding: 10px 25px;
+        font-size: 1rem;
+        border: none;
+        border-radius: 10px;
+        background: #ff4b5c;
+        color: white;
+        cursor: pointer;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+        transition: 0.3s;
+      }
+      button.nav:hover {
+        transform: translateY(-3px);
+        background: #ff3347;
+      }
+      button.nav:disabled {
+        background: #e0a5ab;
+        cursor: not-allowed;
+      }
 
-/* Confetti */
-.confetti {
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  background-color: #ffdae0;
-  top: 0;
-  left: 0;
-  opacity: 0.8;
-  border-radius: 50%;
-  pointer-events: none;
-  animation: confettiFall 3s linear forwards;
-}
-@keyframes confettiFall {
-  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-  100% { transform: translateY(600px) rotate(360deg); opacity: 0; }
-}
+      /* Surprise page */
+      #surprise {
+        display: none;
+        text-align: center;
+        font-family: "Great Vibes", cursive;
+        font-size: 2.2rem;
+        animation: glowPulse 2s infinite;
+      }
 
-/* Responsive */
-@media (max-width: 480px) {
-  .story-slide p { font-size: 1rem; padding: 6px 8px; }
-  button.nav { font-size: 0.9rem; padding: 8px 15px; }
-  #intro h1 { font-size: 2rem; }
-  #intro button { font-size: 1rem; }
-  #surprise { font-size: 1.5rem; }
-}
-</style>
-</head>
-<body>
+      @keyframes glowPulse {
+        0% {
+          transform: scale(1);
+          text-shadow: 0 0 10px #fff;
+        }
+        50% {
+          transform: scale(1.05);
+          text-shadow: 0 0 20px #ff4b5c;
+        }
+        100% {
+          transform: scale(1);
+          text-shadow: 0 0 10px #fff;
+        }
+      }
 
-<!-- Background music -->
-<audio autoplay loop>
-  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-</audio>
+      .confetti {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        top: -10px;
+        animation: confettiFall 4s linear forwards;
+      }
+      @keyframes confettiFall {
+        to {
+          transform: translateY(100vh) rotate(720deg);
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="intro">
+      <h1>❤️ Happy Valentine’s Day 🌹</h1>
+      <button onclick="startStory()">Open Our Love Story</button>
+    </div>
+    <audio id="bg-music" loop>
+      <source src="./asset/love_song.mp3" type="audio/mpeg" />
+    </audio>
 
-<!-- Intro Screen -->
-<div id="intro">
-  <h1>Happy Valentine’s Day ❤️</h1>
-  <button onclick="startStory()">Enter Our Love Story</button>
-</div>
+    <div id="story-container">
+      <div class="story-slide">
+        <img src="./asset/firstdate.jpeg" alt="First Date" />
+        <p>
+          <br />❤️
+          <strong>ການພົບຄັ້ງແລກ</strong
+          >❤️<br />25.12.2025<br />ການທີ່ເຮົາໄດ້ພົບກັນນັ້ນບໍ່ແມ່ນເລື່ອງຄວາມບັງເອີ້ນພ້ອມດ້ວຍກັບການພົບກັນແບບບໍ່ແມ່ນພົບກັນທົ່ວໄປແຕ່ພວກເຮົາສອງຄົນພົບກັນດ້ວຍຈຸດປະສົງອັນດຽວກັນຄືຄວາມຮັກພ້ອມດ້ວຍຄວາມຍິນດີແລະຍິນຍອມເຊິ່ງກັນແລະກັນແລະການຕັດສິນໃຈຄັ້ງນັ້ນຂອງອ້າຍເຮັດໃຫ້ອ້າຍປ່ຽນໄປຕະຫຼອດຈົນຮອດທຸກມື້ນີ້ແລະຄິດວ່າຈະເປັນແບບນີ້ຕະຫຼອດໄປຈົນຮອດລົມຫາຍໃຈສຸດທ້າຍຂອງອ້າຍແລະໃນມື້ນັ້ນມີຫຼາຍຢ່າງທີ່ເກີນຄວາມຄາດໝາຍຂອງອ້າຍແຕ່ບໍ່ສາມາດບັນລະຍາຍໄດ້ທັງໝົດໂດຍຄຳເວົ້າແລະບໍ່ສາມາດສະແດງຄວາມໃນໃຈອອກມາໄດ້ທັງໝົດແຕ່ຄືມີຄວາມຮູ້ສຶກທີ່ເຕັມດ້ວຍຄວາມຮັກ
+          ❤️
+        </p>
+      </div>
+      <div class="story-slide">
+        <img src="./asset/second_meet.webp" alt="second meet" />
+        <p>
+          <br />❤️
+          <strong>ການພົບຄັ້ງທີ່ສອງ</strong
+          >❤️<br />29.12.2025<br />ອີກມື້ໜຶ່ງທີ່ມີຄວາມສຳຄັນຫຼາຍແລະມີຄວາມໝາຍກັບຄວາມສຳພັດຂອງເຮົາສອງຄົນເຮັດໃຫ້ເກີດຄວາມໃກ້ຊິດແລະມີເວລາໄດ້ຢູ່ໃກ້ໆກັນຫລາຍຂື້ນພ້ອມດ້ວຍອາກາດທີ່ເໝາະສົມແກ່ການກອດກັນແລະມີໂອກາດໄດ້ໃຊ້ເວລາຮ່ວມກັນບໍ່ວ່າຈະເປັນການຍ່າງກໍດີບໍ່ຈະເປັນຍີ້ມໃສ່ເຊີ່ງກັນແລະກັນບໍ່ວ່າຈະເປັນການລົມກັນເລື່ອງຕ່າງໆນັ້ນຄືຄວາມສຸກແລະຄວາມສຳພັນທີ່ດີຕໍ່ກັນ
+          🌹
+        </p>
+      </div>
+      <div class="story-slide">
+        <img src="./asset/countdown.jpg" alt="Adventures" />
+        <p>
+          <br />❤️
+          <strong>ການພົບຄັ້ງທີ່ສາມ</strong
+          >❤️<br />31.12.2025<br />ເປັນມື້ໜຶ່ງທີ່ມີຄວາມສຸກແລະມີຄວາມມ່ວນຊື່ນກັບໝູ່ເພື່ອນຫຼາຍໆຄົນພ້ອມກັບບັນຍາກາດທີ່ລົງຕົວແລະທຳມະຊາດທີ່ສົດໃສຄູ່ກັບອາກາດທີ່ພໍດີພ້ອມດ້ວຍທິວທັດເມືອງສິງທີ່ສວຍງາມໃນຂະນະດຽວກັນຈັງຫວະເວລາທີ່ເໝາະສົມເນື່ອງໃນໂອກາດສົ່ງທ້າຍປີເກົ່າແລະຕ້ອນຮັບປີໃໝ່ນອກເໜືອຈາກນັ້ນຍັງມີນ້ອງທີ່ຄ່ອຍສົ່ງແສງຄວາມຮັກອັນສົດໃສໃຫ້ອ້າຍຕະຫຼອດຈົນຂ້າມປີໄປຢ່າງມີຄວາມສຸກແລະມ່ວນຊື່ນ✨
+        </p>
+      </div>
+      <div class="story-slide">
+        <img src="./asset/fourth.jpg" alt="fouth meet" />
+        <p>
+          <br />❤️
+          <strong>ການພົບຄັ້ງທີ່ສີ່</strong
+          >❤️<br />02.01.2026<br />ເປັນອີກມື້ໜຶ່ງທີ່ມີຄວາມສຳຄັນແລະມີຄວາມໝາຍຢ່າຫຼວງຫຼາຍທີ່ມີໂອກາດໄດ້ໄປຮັບແຟນຢູ່ຕ່າງບ້ານນີ້ເປັນຄັ້ງທຳອິດໃນຊິວິດຂອງອ້າຍທີ່ໄປຮັບແຟນຕ່າງບ້ານແຕ່ກະມີຄວາມສຸກຫຼາຍທີ່ໄດ້ເຫັນຮອຍຍີ້ມຂອງນ້ອງມີໂອກາດຂີ່ລົດຈັກນຳກັນໄດ້ລົມກັນໃນລະຫວ່າງຂີ່ລົດຈັກນັ້ນເປັນປະສົບການໃໝ່ຂອງອ້າຍອີກຢ່າງອ້າຍໂຄດຄວາມສຸກເລີຍອ້າຍທີ່ໄດ້ເຫັນຄວາມຈິງໃຈຂອງນ້ອງຕໍ່ອ້າຍ
+          💏
+        </p>
+      </div>
+      <div class="story-slide">
+        <img src="./asset/couple.avif" alt="Adventures" />
+        <p>
+          <br />❤️
+          <strong>ການຂໍເປັນແຟນ</strong
+          >❤️<br />04.01.2026<br />ເປັນມືໂອກາດເວລາທີ່ດີຂອງອ້າຍທີ່ໄດ້ມີໂອກາດຂໍນ້ອງເປັນແຟນແລະໃຫ້ດີໃຈຢ່າງມາກມາຍທີ່ນ້ອງຕົກລົງດ້ວຍບໍ່ມີເງື່ອນໄຂໃດໆຕໍ່ອ້າຍນ້ອງມີຄວາມໝາຍຫຼາຍ
+          ດີໃຈສຸດໆໆ 💏😀
+        </p>
+      </div>
+      <div class="story-slide">
+        <img src="./asset/love_forever.jpg" alt="Forever Love" />
+        <p>
+          Love doesn’t rush; it arrives softly, like morning light through a
+          quiet window. It chooses you in ordinary moments, in laughter, in
+          silence, in staying. The next love you find will feel steady and sure,
+          not loud but lasting, growing stronger with every gentle, faithful
+          heartbeat.💖
+        </p>
+      </div>
 
-<!-- Story Container -->
-<div id="story-container">
-  <div class="story-slide">
-    <img src="https://picsum.photos/600/400?random=1" alt="First Moment">
-    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rem aut debitis ex optio nostrum, tenetur ipsam id a asperiores consequatur maiores dolores, placeat nulla sit expedita nihil? Explicabo, quis! Consectetur. ❤️</p>
-  </div>
-  <div class="story-slide">
-    <img src="https://picsum.photos/600/400?random=2" alt="First Date">
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam nulla corrupti quisquam. Unde velit officiis dicta consequuntur molestias dolorem mollitia sit. Est aspernatur consequuntur optio molestiae aperiam fugit assumenda doloribus. 🌹</p>
-  </div>
-  <div class="story-slide">
-    <img src="https://picsum.photos/600/400?random=3" alt="Adventures">
-    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Perferendis saepe et soluta ea, temporibus commodi iste consequatur unde id laborum sint vitae, quod aspernatur veniam recusandae similique neque. Odit, officiis. ✨</p>
-  </div>
-  <div class="story-slide">
-    <img src="https://picsum.photos/600/400?random=4" alt="Forever Love">
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum officiis aut quis sequi ut corporis est fuga eaque ab eum! Consequatur asperiores harum rem eligendi reiciendis voluptas voluptatem ex! Facilis. 💖</p>
-  </div>
+      <div id="surprise">
+        🌟 Surprise! 🌟<br />
+        I love you more than all the stars! 💞<br />
+        You are my everything. ❤️
+      </div>
 
-  <div class="nav-buttons">
-    <button class="nav" id="prevBtn">← Previous</button>
-    <button class="nav" id="nextBtn">Next →</button>
-  </div>
-</div>
+      <div class="nav-buttons">
+        <button class="nav" id="prevBtn" onclick="changeSlide(-1)">
+          Prev
+        </button>
+        <button class="nav" id="nextBtn" onclick="changeSlide(1)">
+          Next
+        </button>
+      </div>
+    </div>
 
-<!-- Surprise Page -->
-<div id="surprise">
-  🌟 Surprise! 🌟<br>
-  I love you more than all the stars in the sky! 💞<br>
-  You are my everything. ❤️
-</div>
+    <script>
+      let slideIndex = 0;
+      const slides = document.querySelectorAll(".story-slide");
+      const surpriseDiv = document.getElementById("surprise");
+      const nextBtn = document.getElementById("nextBtn");
+      const prevBtn = document.getElementById("prevBtn");
+      const music = document.getElementById("bg-music");
 
-<script>
-// Intro -> Story
-function startStory() {
-  document.getElementById('intro').style.display = 'none';
-  document.getElementById('story-container').style.display = 'flex';
-  showSlide(slideIndex);
-}
+      function startStory() {
+        document.getElementById("intro").style.display = "none";
+        document.getElementById("story-container").style.display = "flex";
+        music.play().catch(() => {
+          console.log("Autoplay blocked. Click again to play music.");
+        });
+        updateDisplay();
+      }
 
-// Story navigation
-let slideIndex = 0;
-const slides = document.querySelectorAll('.story-slide');
-const totalSlides = slides.length;
+      function changeSlide(step) {
+        slideIndex += step;
+        updateDisplay();
+      }
 
-function showSlide(index) {
-  slides.forEach(slide => slide.style.display = 'none');
-  const nextBtn = document.getElementById('nextBtn');
+      function updateDisplay() {
+        // Hide all slides and surprise
+        slides.forEach((s) => s.classList.remove("active"));
+        surpriseDiv.style.display = "none";
 
-  if(index < totalSlides) {
-    slides[index].style.display = 'flex';
-    document.getElementById('surprise').style.display = 'none';
-    nextBtn.style.display = (index === totalSlides - 1) ? 'none' : 'inline-block';
-  } else {
-    document.getElementById('story-container').style.display = 'none';
-    document.getElementById('surprise').style.display = 'block';
-    launchConfetti();
-  }
-}
+        // Handle Logic
+        if (slideIndex < 0) slideIndex = 0;
 
-document.getElementById('nextBtn').addEventListener('click', () => {
-  slideIndex++;
-  showSlide(slideIndex);
-});
+        if (slideIndex < slides.length) {
+          // Show current slide
+          slides[slideIndex].classList.add("active");
+          nextBtn.innerText = "Next";
+        } else {
+          // Show surprise
+          surpriseDiv.style.display = "block";
+          nextBtn.innerText = "Replay❤️";
+          if (slideIndex > slides.length) slideIndex = 0; // Loop back if clicked again
+          launchConfetti();
+        }
 
-document.getElementById('prevBtn').addEventListener('click', () => {
-  if(slideIndex > 0) {
-    slideIndex--;
-    document.getElementById('story-container').style.display = 'flex';
-    showSlide(slideIndex);
-  }
-});
+        // Disable Prev on first slide
+        prevBtn.disabled = slideIndex === 0;
+      }
 
-// Floating hearts
-function createHeart() {
-  const heart = document.createElement('div');
-  heart.classList.add('heart');
-  heart.style.left = Math.random() * window.innerWidth + 'px';
-  heart.style.animationDuration = 3 + Math.random() * 4 + 's';
-  document.body.appendChild(heart);
-  setTimeout(() => heart.remove(), 6000);
-}
-setInterval(createHeart, 300);
+      // Background Hearts
+      function createHeart() {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = Math.random() * 3 + 2 + "s";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 5000);
+      }
+      setInterval(createHeart, 400);
 
-// Click hearts
-document.body.addEventListener('click', (e) => {
-  for(let i=0;i<3;i++){
-    const heart = document.createElement('div');
-    heart.classList.add('heart');
-    heart.style.left = (e.clientX + Math.random()*50 - 25) + 'px';
-    heart.style.top = (e.clientY + Math.random()*50 - 25) + 'px';
-    heart.style.animationDuration = 2 + Math.random() * 2 + 's';
-    document.body.appendChild(heart);
-    setTimeout(()=>heart.remove(),3000);
-  }
-});
-
-// Confetti on surprise page
-function launchConfetti() {
-  for(let i=0;i<50;i++){
-    const confetti = document.createElement('div');
-    confetti.classList.add('confetti');
-    confetti.style.left = Math.random() * window.innerWidth + 'px';
-    confetti.style.backgroundColor = `hsl(${Math.random()*360},70%,80%)`;
-    confetti.style.animationDuration = (2+Math.random()*2)+'s';
-    document.body.appendChild(confetti);
-    setTimeout(()=>confetti.remove(),4000);
-  }
-}
-</script>
-
-</body>
+      function launchConfetti() {
+        for (let i = 0; i < 30; i++) {
+          const c = document.createElement("div");
+          c.classList.add("confetti");
+          c.style.left = Math.random() * 100 + "vw";
+          c.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 70%)`;
+          c.style.animationDelay = Math.random() * 2 + "s";
+          document.body.appendChild(c);
+          setTimeout(() => c.remove(), 4000);
+        }
+      }
+    </script>
+  </body>
 </html>
